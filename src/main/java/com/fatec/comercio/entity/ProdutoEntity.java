@@ -34,6 +34,7 @@ public class ProdutoEntity {
     @ManyToOne
     @JoinColumn(name = "marca_id",  nullable = false)
     private MarcaEntity marca;
+
     @ManyToOne
     @JoinColumn(name = "tipo_id",  nullable = false)
     private TipoEntity tipo;

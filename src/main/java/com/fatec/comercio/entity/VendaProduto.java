@@ -5,32 +5,32 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import java.math.BigDecimal;
 
 @Entity
-@Table(name = "VendaProduto")
+@Table(name = "venda_produto")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class VendaProduto {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    @EmbeddedId
+    private VendaProdutoId id;
 
-    @ManyToOne
-    @JoinColumn(name = "venda_id", nullable = false)
-    private VendaEntity venda;
-
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @MapsId("produtoId")
     @JoinColumn(name = "produto_id", nullable = false)
     private ProdutoEntity produto;
 
-    @Column(name = "valor", nullable = false, precision = 10, scale = 2)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @MapsId("vendaId")
+    @JoinColumn(name = "venda_id", nullable = false)
+    private VendaEntity venda;
+
+    @Column(name = "quantidade", nullable = false, precision = 10, scale = 2)
     private BigDecimal quantidade;
 
-    @Column(name = "preco", nullable = false, precision = 10, scale = 2)
+    @Column(name = "preco_unitario", nullable = false, precision = 10, scale = 2)
     private BigDecimal precoUnitario;
 }

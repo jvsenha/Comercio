@@ -1,6 +1,7 @@
 package com.fatec.comercio.controllers;
 
 import com.fatec.comercio.entity.VendaProduto;
+import com.fatec.comercio.entity.VendaProdutoId;
 import com.fatec.comercio.service.VendaProdutoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,9 +24,14 @@ public class VendaProdutoController {
         return ResponseEntity.ok(lista);
     }
 
-    @DeleteMapping("/delete/{id}")
-    public ResponseEntity<HashMap<String, Object>> deletaId(@PathVariable Long id) {
+    @DeleteMapping("/delete/{produtoId}/{vendaId}")
+    public ResponseEntity<HashMap<String, Object>> deletaId(
+            @PathVariable Long produtoId,
+            @PathVariable Long vendaId) {
+
+        VendaProdutoId id = new VendaProdutoId(produtoId, vendaId);
         HashMap<String, Object> resposta = new HashMap<>();
+
         try {
             vendaProdutoService.deletar(id);
             resposta.put("mensagem", "O vendaProduto com id: " + id + " foi apagado com sucesso");
@@ -40,7 +46,7 @@ public class VendaProdutoController {
     public ResponseEntity<HashMap<String, Object>> save(@RequestBody VendaProduto vendaProdutoNovo) {
         HashMap<String, Object> resposta = new HashMap<>();
         try {
-            VendaProduto salvo = vendaProdutoService.save(vendaProdutoNovo);
+            VendaProduto salvo = vendaProdutoService.salvar(vendaProdutoNovo);
             resposta.put("mensagem", "VendaProduto salvo com sucesso");
             resposta.put("vendaProduto", salvo);
             return ResponseEntity.status(HttpStatus.CREATED).body(resposta);
@@ -50,9 +56,15 @@ public class VendaProdutoController {
         }
     }
 
-    @PutMapping("/update/{id}")
-    public ResponseEntity<HashMap<String, Object>> alterar(@PathVariable Long id, @RequestBody VendaProduto vendaProdutoNovo) {
+    @PutMapping("/update/{produtoId}/{vendaId}")
+    public ResponseEntity<HashMap<String, Object>> alterar(
+            @PathVariable Long produtoId,
+            @PathVariable Long vendaId,
+            @RequestBody VendaProduto vendaProdutoNovo) {
+
+        VendaProdutoId id = new VendaProdutoId(produtoId, vendaId);
         HashMap<String, Object> resposta = new HashMap<>();
+
         try {
             VendaProduto vendaProduto = vendaProdutoService.alterar(id, vendaProdutoNovo);
             resposta.put("mensagem", "VendaProduto alterado com sucesso");

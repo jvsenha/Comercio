@@ -47,6 +47,10 @@ public class ClienteEntity {
     @JoinColumn(name = "cep_id",  nullable = false)
     private CepEntity cep;
 
+    @ManyToOne
+    @JoinColumn(name = "sexo_id", nullable = false)
+    private SexoEntity sexo;
+
 
 }
 

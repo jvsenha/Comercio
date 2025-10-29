@@ -25,7 +25,7 @@ public class VendaEntity {
     @Column(name = "dataVenda", nullable = false)
     private LocalDate dataVenda;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cliente_id",  nullable = false)
     private ClienteEntity cliente;
 

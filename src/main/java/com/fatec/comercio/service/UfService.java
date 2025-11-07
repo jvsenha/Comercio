@@ -14,35 +14,40 @@ public class UfService {
     private UfRepository ufRepository;
 
 
-    // Listar todos os registros
     public List<UfEntity> listar() {
         return ufRepository.findAll();
     }
 
-    // Salvar novo registro
     public UfEntity save(UfEntity uf) {
         if (uf.getName() == null || uf.getName().isBlank()) {
-            throw new RuntimeException("Nome do uf não pode ser vazio");
+            throw new RuntimeException("Nome do UF não pode ser vazio");
+        }
+        if (uf.getSiglaUf() == null || uf.getSiglaUf().isBlank()) {
+            throw new RuntimeException("Sigla do UF não pode ser vazia");
         }
         return ufRepository.saveAndFlush(uf);
     }
 
-    // Alterar registro existente
     public UfEntity alterar(long id, UfEntity uf) {
         UfEntity existente = buscarUf(id);
+
+        if (uf.getName() == null || uf.getName().isBlank()) {
+            throw new RuntimeException("Nome do UF não pode ser vazio");
+        }
+        if (uf.getSiglaUf() == null || uf.getSiglaUf().isBlank()) {
+            throw new RuntimeException("Sigla do UF não pode ser vazia");
+        }
 
         existente.setName(uf.getName());
         existente.setSiglaUf(uf.getSiglaUf());
         return ufRepository.saveAndFlush(existente);
     }
 
-    // Buscar registro pelo ID
     public UfEntity buscarUf(long id) {
         return ufRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Uf não encontrado com id: " + id));
     }
 
-    // Deletar registro pelo ID
     public void deletar(Long id) {
         UfEntity existente = buscarUf(id);
         ufRepository.delete(existente);

@@ -12,6 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/cep")
+@CrossOrigin("*")
 public class CepController {
 
     @Autowired

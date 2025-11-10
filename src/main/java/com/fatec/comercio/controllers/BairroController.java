@@ -12,6 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/bairro")
+@CrossOrigin("*")
 public class BairroController {
 
     @Autowired

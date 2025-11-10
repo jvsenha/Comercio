@@ -12,6 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/tipo")
+@CrossOrigin("*")
 public class TipoController {
 
     @Autowired

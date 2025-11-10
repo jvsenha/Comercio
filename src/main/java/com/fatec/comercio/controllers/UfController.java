@@ -12,6 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/uf")
+@CrossOrigin("*")
 public class UfController {
 
     @Autowired

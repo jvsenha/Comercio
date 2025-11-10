@@ -12,6 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/marca")
+@CrossOrigin("*")
 public class MarcaController {
 
     @Autowired

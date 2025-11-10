@@ -22,6 +22,8 @@ public class VendaEntity {
     @Column(name = "id")
     private Long id;
 
+
+
     @Column(name = "dataVenda", nullable = false)
     private LocalDate dataVenda;
 

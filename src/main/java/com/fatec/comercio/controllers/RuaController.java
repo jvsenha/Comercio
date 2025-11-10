@@ -12,6 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/rua")
+@CrossOrigin("*")
 public class RuaController {
 
     @Autowired

@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.List; // <-- MUDANÇA (de Set para List)
 
 @Entity
 @Table(name = "Venda")
@@ -14,15 +15,12 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-
 public class VendaEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     private Long id;
-
-
 
     @Column(name = "dataVenda", nullable = false)
     private LocalDate dataVenda;
@@ -31,4 +29,8 @@ public class VendaEntity {
     @JoinColumn(name = "cliente_id",  nullable = false)
     private ClienteEntity cliente;
 
+    // --- BLOCO MODIFICADO ---
+    @OneToMany(mappedBy = "venda", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY) // <-- MUDANÇA (deve ser LAZY)
+    @JsonIgnoreProperties("venda")
+    private List<VendaProduto> itens; // <-- MUDANÇA (de Set para List)
 }

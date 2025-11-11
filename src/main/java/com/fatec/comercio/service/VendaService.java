@@ -2,6 +2,7 @@ package com.fatec.comercio.service;
 
 import com.fatec.comercio.entity.VendaEntity;
 import com.fatec.comercio.repository.VendaRepository;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +16,7 @@ public class VendaService {
 
 
     // Listar todos os registros
+    @Transactional(readOnly = true)
     public List<VendaEntity> listar() {
         return vendaRepository.findAll();
     }
